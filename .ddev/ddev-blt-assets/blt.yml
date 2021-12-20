@@ -1,0 +1,27 @@
+project:
+  machine_name: wingsuit
+  prefix: WS
+  profile:
+    name: minimal
+cm:
+  core:
+    install_from_config: true
+
+setup:
+  # Valid values are install, sync, import.
+  strategy: import
+  dump-file: "../dump/dump.sql"
+
+command-hooks:
+  frontend-reqs:
+    dir: ${docroot}/themes/custom
+    command: '[ ! -d "wingsuit" ] && npx @wingsuit-designsystem/cli init -k tailwind --skip-install --branch=master; cd wingsuit && yarn install'
+  frontend-assets:
+    dir: ${docroot}/themes/custom/wingsuit
+    command: 'yarn build:drupal'
+
+validate:
+  twig:
+    filters: [asset]
+    functions: [uuid, asset, pattern, pattern_preview, pattern_configuration, drupal_entity]
+

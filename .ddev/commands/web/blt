@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+## Description: Execute Acquia BLT convenience commands
+## Usage: blt [command] [options] [arguments]
+## Example: "ddev blt list" to get a listing of available Acquia BLT convenience commands\n\nTo get more help with a specific BLT convenience command, execute "ddev blt help [command]"
+
+/var/www/html/vendor/bin/blt "$@" --environment=ddev

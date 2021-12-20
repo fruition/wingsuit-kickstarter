@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+## Description: Helper script called by "ddev init" to assist in initialize the Wingsuit project. Use "ddev init" instead.
+## ProjectTypes: drupal8,drupal9
+
+set -e
+
+#-------------------------- Settings --------------------------------
+
+# PROJECT_ROOT and DOCROOT are set as env variables in cli
+SITE_DIRECTORY="default"
+DOCROOT_PATH="${PWD}/${DOCROOT}"
+SITEDIR_PATH="${DOCROOT_PATH}/sites/${SITE_DIRECTORY}"
+FULLURL=${DDEV_PRIMARY_URL}
+
+#-------------------------- END: Settings --------------------------------
+
+#-------------------------- Helper functions -----------------------------
+
+# Console colors
+red='\033[0;31m'
+green='\033[0;32m'
+green_bg='\033[42m'
+yellow='\033[1;33m'
+NC='\033[0m'
+
+echo-red () { echo -e "${red}$1${NC}"; }
+echo-green () { echo -e "${green}$1${NC}"; }
+echo-green-bg () { echo -e "${green_bg}$1${NC}"; }
+echo-yellow () { echo -e "${yellow}$1${NC}"; }
+
+#-------------------------- END: Helper functions ------------------------
+echo -e ${DDEV_PRIMARY_URL}
+#-------------------------- Functions --------------------------------
+
+# Make sure BLT is installed
+ensure_blt_installed ()
+{
+  # TODO: Check for vendor/bin/blt and skip composer install if exists.
+  echo "Make sure BLT is installed"
+  ddev exec composer install --apcu-autoloader
+}
+
+#-------------------------- END: Functions --------------------------------
+
+#-------------------------- Execution --------------------------------
+
+# Project initialization steps
+ensure_blt_installed
+ddev blt setup -n -D wingsuit.starterkit='tailwind'
+
+echo -e "Opening ${yellow}http://${DDEV_PRIMARY_URL}${NC} in your browser and logging you in as uid 1 to verify the setup."
+
+FULLURL=$(ddev drush uli)
+
+case $OSTYPE in
+  linux-gnu)
+    xdg-open ${FULLURL}
+    ;;
+  "darwin"*)
+    open ${FULLURL}
+    ;;
+  "win*"* | "msys"*)
+    start ${FULLURL}
+    ;;
+esac
+
+#-------------------------- END: Execution --------------------------------
