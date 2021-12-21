@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+## Description: Build Storybook
+## Usage: build-storybook
+## Example: "ddev build-storybook"
+
+cd /var/www/html/docroot/themes/custom/wingsuit
+yarn build:storybook
