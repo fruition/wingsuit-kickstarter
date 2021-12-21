@@ -43,6 +43,15 @@ ensure_blt_installed ()
 
 #-------------------------- END: Functions --------------------------------
 
+#-------------------------- Storybook startup ------------------------
+ensure_storybook_is_built()
+{
+  echo "Building Storybook"
+  ddev build-storybook
+}
+
+#-------------------------- END: Storybook startup ------------------------
+
 #-------------------------- Execution --------------------------------
 
 # Project initialization steps
@@ -64,5 +73,7 @@ case $OSTYPE in
     start ${FULLURL}
     ;;
 esac
+
+ensure_storybook_is_built
 
 #-------------------------- END: Execution --------------------------------

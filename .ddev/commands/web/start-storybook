@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+## Description: Start Storybook
+## Usage: start-storybook
+## Example: "ddev start-storybook"
+
+cd /var/www/html/docroot/themes/custom/wingsuit
+#npm run build-storybook -- -o ./dist/app-storybook
+yarn dev:storybook:ddev
+
+#npx http-server ./dist/app-storybook
+#yarn dev:storybook:ddev
