@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-## Description: Start Storybook
-## Usage: start-storybook
-## Example: "ddev start-storybook"
-
-cd /var/www/html/docroot/themes/custom/wingsuit
-yarn dev:storybook:ddev
